@@ -1,0 +1,33 @@
+.App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .board {
+    display: flex;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column-reverse; /* To start filling from bottom */
+    padding: 5px;
+  }
+  
+  .cell {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(245, 245, 245);
+    margin: 3px;
+    border: 1px solid black;
+  }
+  
+  .cell.red {
+    background-color: red;
+  }
+  
+  .cell.blue {
+    background-color: blue;
+  }
