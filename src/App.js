@@ -14,12 +14,24 @@ import evaluateBoard from "./comp/evaluateScore";
 //import findBestMove from "./comp/graphAI";
 import findBestMove from "./comp/connectAI";
 
+/* 
+
+REMOVING CONSOLE.lOG FROM CONNECTAI WILL REALLY SPEED IT UP!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*/
+
 function App() {
   //0 for Player and 1 for AI
   const [playerTurn, setPlayerTurn] = useState(1);
 
+  //AiEnabled?
+  const [aiEnabled, setAIEnabled] = useState(0)
+
   //0 - Game hasn't started, 1- Game ongoing, 2- Game Over
-  const [gameState, setGameState] = useState(1);
+  const [gameState, setGameState] = useState(0);
+
+  //Set winner for the endScreen
+  const [winner,setWinner] = useState("")
 
   //Connect 4 main Manager
   const [boardState, setBoardState] = useState(
@@ -40,9 +52,13 @@ function App() {
   useEffect(() => {
 
 
-    if (playerTurn === 2) {
-      let column = findBestMove(boardState,5,true)
-      console.log(column)
+    if (playerTurn === 2 && aiEnabled) {
+
+      //Going above 5 REALLY slows it down, so tread carefully!
+      let bestColumn = findBestMove(boardState,6,true)
+      console.log(bestColumn)
+
+      handleClick(bestColumn)
     }
   }, [playerTurn, boardState]);
 
@@ -82,9 +98,14 @@ function App() {
             setBoardState(newBoardState);
             changePlayer();
 
+            //Check Win Conditions
             // Exit the loop after making the move
             break;
         }
+    }
+    if(checkConditions(boardState) !==null){
+      setWinner(checkConditions(boardState));
+      setGameState(2)
     }
 }
 
@@ -93,11 +114,37 @@ function App() {
     setPlayerTurn(playerTurn === 1 ? 2 : 1);
   }
 
+  function startGame(ai){
+    setGameState(1)
+    setPlayerTurn(1)
+    if(ai){
+      setAIEnabled(true)
+    }
+    else{
+      setAIEnabled(false)
+    }
+  }
+
+  function resetBoard(){
+    setGameState(0);
+    setPlayerTurn(1);
+    setBoardState([
+      [null, null, null, null, null, null],
+      [null, null, null, null, null, null],
+      [null, null, null, null, null, null],
+      [null, null, null, null, null, null],
+      [null, null, null, null, null, null],
+      [null, null, null, null, null, null],
+    ])
+
+  }
+
+
   return (
     <div>
-      {gameState === 0 && <StartScreen setGameState={setGameState} />}
+      {gameState === 0 && <StartScreen startGame={startGame} />}
       {gameState === 1 && loadBoard()}
-      {gameState === 2 && <EndScreen setGameState={setGameState} />}
+      {gameState === 2 && <EndScreen winner={winner} resetBoard={resetBoard} />}
       <Footer></Footer>
     </div>
   );

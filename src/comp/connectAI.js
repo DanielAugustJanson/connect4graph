@@ -52,12 +52,12 @@ function findBestMove(boardState, depthLimit, isMaximizing) {
 function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
   let score = 0;
 
-  console.log(isMaximizing)
+  //console.log(isMaximizing)
 
   //Check if we have reached a terminal state
   let terminalState = checkConditions(boardState);
   if (terminalState !== null) {
-    console.log("Terminal Stage Reached")
+    //console.log("Terminal Stage Reached")
     switch (terminalState) {
       case "red":
         score = 1000;
@@ -77,7 +77,7 @@ function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
 
   //Evaluate board
   score = evaluateBoard(boardState);
-  console.log("Evaluating score of the move is: "+ score)
+  //console.log("Evaluating score of the move is: "+ score)
 
   //Check if we have reached the maximum depth
   if (depthLimit <= 0) {

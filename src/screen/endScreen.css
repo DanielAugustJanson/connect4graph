@@ -1,0 +1,28 @@
+.endScreen{
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(201, 204, 236);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.endScreen p{
+    font-size: 1.5rem;
+}
+
+.endScreen button{
+  background-color: #2349c5; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+  cursor: pointer;
+}
+

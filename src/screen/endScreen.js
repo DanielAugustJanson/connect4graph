@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import "../screen/endScreen.css";
 
-const endScreen = () => {
+const EndScreen = ({ winner, resetBoard }) => {
   return (
-    <div>endScreen</div>
-  )
-}
+    <div className='endScreen'>
+        <p>Game Over</p>
+        <p>Winner is: - {winner}</p>
+        <button onClick={resetBoard}>Restart</button>
+    </div>
+  );
+};
 
-export default endScreen
+export default EndScreen;
