@@ -1,5 +1,0 @@
-Please correct me if I am wrong.
-
-So my understanding is, that in graph theory, if the each destination or a node represents a game board in a specific state, then we can think of each node as a specific case of a board. So as you noted, we would have one node, the base node where our field is empty and it would be our point zero as all games start from an empty board. Now for each possible move we have a node, which represent a new change for each possible outcome, (so in our case we would have a matter of: Red on first, red on second, red on third and so on until we reach the end of row one, and then we would have the same list of moves for blue (incase we later add the option for AI to begin). Now each one of these new nodes are connected to the starting node as that's the only path where they can move from. 
-
-Now each node would have a value that will be given based on our own choice. Now in our case, AI would always want to move towards a node that 

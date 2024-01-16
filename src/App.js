@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 //Screens
@@ -8,11 +8,15 @@ import Footer from "./screen/footer";
 
 //Components
 import checkConditions from "./comp/checkConditions";
-import findBestMove from "./comp/graphAI"
+import evaluateBoard from "./comp/evaluateScore";
+
+//Old iteration of the algorithm
+//import findBestMove from "./comp/graphAI";
+import findBestMove from "./comp/connectAI";
 
 function App() {
   //0 for Player and 1 for AI
-  const [playerTurn, setPlayerTurn] = useState(0);
+  const [playerTurn, setPlayerTurn] = useState(1);
 
   //0 - Game hasn't started, 1- Game ongoing, 2- Game Over
   const [gameState, setGameState] = useState(1);
@@ -32,6 +36,16 @@ function App() {
     ]
   );
 
+  //Make AI move when state changes
+  useEffect(() => {
+
+
+    if (playerTurn === 2) {
+      let column = findBestMove(boardState,5,true)
+      console.log(column)
+    }
+  }, [playerTurn, boardState]);
+
   //Load the board
   function loadBoard() {
     return (
@@ -42,7 +56,7 @@ function App() {
               <div
                 key={`${colIndex}-${rowIndex}`}
                 className={`cell ${
-                  cell === 0 ? "red" : cell === 1 ? "blue" : ""
+                  cell === "red" ? "red" : cell === "blue" ? "blue" : ""
                 }`}
                 onClick={() => handleClick(colIndex)}
               />
@@ -55,32 +69,28 @@ function App() {
 
   //Handle Click
   function handleClick(column) {
-    // Find the first null (empty) cell in the column
-    const newBoardState = [...boardState];
-    const emptySlotIndex = newBoardState[column].findIndex(
-      (cell) => cell === null
-    );
-    if (emptySlotIndex !== -1) {
-      // Fill the first empty slot with the current player's color
-      newBoardState[column][emptySlotIndex] = playerTurn;
-      setBoardState(newBoardState);
+    // Iterate through the selected column
+    for (let i = 0; i < boardState[column].length; i++) {
+        if (boardState[column][i] === null) {
+            // Create a deep copy of the boardState
+            const newBoardState = boardState.map(col => [...col]);
 
-      //Check if game should be over
-      let result = checkConditions(boardState)
-      if(result === "red" || result === "blue"){
-        //Notify of winning.
-      }
-      if(result === "draw"){
-        //Notify that game is over
-      }
+            // Update the first empty slot in the column with the current player's color
+            newBoardState[column][i] = playerTurn === 1 ? 'blue' : 'red';
 
-      //At the end change player turn.
-      changePlayer();
+            // Update the board state and change the player
+            setBoardState(newBoardState);
+            changePlayer();
+
+            // Exit the loop after making the move
+            break;
+        }
     }
-  }
+}
+
 
   function changePlayer() {
-    setPlayerTurn(playerTurn === 0 ? 1 : 0);
+    setPlayerTurn(playerTurn === 1 ? 2 : 1);
   }
 
   return (

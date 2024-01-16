@@ -9,7 +9,7 @@ function checkConditions(boardState) {
     for (let row = 0; row < 6; row++) {
       for (let col = 0; col < 3; col++) {
         if (checkLine(boardState[col][row], boardState[col + 1][row], boardState[col + 2][row], boardState[col + 3][row])) {
-          return boardState[col][row] === 0 ? 'red' : 'blue';
+          return boardState[col][row];
         }
       }
     }
@@ -18,7 +18,7 @@ function checkConditions(boardState) {
     for (let col = 0; col < 6; col++) {
       for (let row = 0; row < 3; row++) {
         if (checkLine(boardState[col][row], boardState[col][row + 1], boardState[col][row + 2], boardState[col][row + 3])) {
-          return boardState[col][row] === 0 ? 'red' : 'blue';
+          return boardState[col][row];
         }
       }
     }
@@ -27,7 +27,7 @@ function checkConditions(boardState) {
     for (let col = 0; col < 3; col++) {
       for (let row = 0; row < 3; row++) {
         if (checkLine(boardState[col][row], boardState[col + 1][row + 1], boardState[col + 2][row + 2], boardState[col + 3][row + 3])) {
-          return boardState[col][row] === 0 ? 'red' : 'blue';
+          return boardState[col][row];
         }
       }
     }
@@ -36,15 +36,16 @@ function checkConditions(boardState) {
     for (let col = 0; col < 3; col++) {
       for (let row = 3; row < 6; row++) {
         if (checkLine(boardState[col][row], boardState[col + 1][row - 1], boardState[col + 2][row - 2], boardState[col + 3][row - 3])) {
-          return boardState[col][row] === 0 ? 'red' : 'blue';
+          return boardState[col][row];
         }
       }
     }
   
     // Check for draw
+    /*
     if (boardState.every(column => column.every(cell => cell !== null))) {
       return 'draw';
-    }
+    }*/
   
     // No winner or draw
     return null;
