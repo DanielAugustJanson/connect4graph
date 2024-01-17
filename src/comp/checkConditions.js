@@ -42,10 +42,10 @@ function checkConditions(boardState) {
     }
   
     // Check for draw
-    /*
+    
     if (boardState.every(column => column.every(cell => cell !== null))) {
       return 'draw';
-    }*/
+    }
   
     // No winner or draw
     return null;
