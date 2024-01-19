@@ -55,7 +55,7 @@ function App() {
     if (playerTurn === 2 && aiEnabled) {
 
       //Going above 5 REALLY slows it down, so tread carefully!
-      let bestColumn = findBestMove(boardState,6,true)
+      let bestColumn = findBestMove(boardState,10,true)
       console.log(bestColumn)
 
       handleClick(bestColumn)

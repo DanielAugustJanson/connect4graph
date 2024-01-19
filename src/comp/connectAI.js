@@ -23,7 +23,8 @@ function findBestMove(boardState, depthLimit, isMaximizing) {
         let score = makeMinMaxMove(
           JSON.parse(JSON.stringify(boardState)),
           depthLimit - 1,
-          (!isMaximizing)
+          (!isMaximizing),
+          0
         );
 
         // Undo the move for the next iteration
@@ -49,8 +50,9 @@ function findBestMove(boardState, depthLimit, isMaximizing) {
   return bestMove;
 }
 
-function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
+function makeMinMaxMove(boardState, depthLimit, isMaximizing,previousScore) {
   let score = 0;
+  let oldScore = previousScore;
 
   //console.log(isMaximizing)
 
@@ -84,8 +86,17 @@ function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
     return score;
   }
 
+
   //Recursion starts here
   if (isMaximizing) {
+
+
+    //If the current state of the board is worse than the one before (for this player perspective), we retun the score and skip this move.
+    if(score <= oldScore){
+      console.log( score + oldScore + "This move worse, skipping")
+      return score;
+    }
+
     let bestScore = -Infinity;
 
     //Run through to see if any moves can be made from here
@@ -98,7 +109,7 @@ function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
         if (newBoardState[column][rowIndex] === null) {
           //Apply move as red
           newBoardState[column][rowIndex] = "red";
-          let score = makeMinMaxMove(newBoardState, depthLimit - 1, false);
+          let score = makeMinMaxMove(newBoardState, depthLimit - 1, false, oldScore);
 
           //Reset the value for next iteration
           newBoardState[column][rowIndex] = null;
@@ -108,8 +119,18 @@ function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
       }
     }
     return bestScore;
+
+
+
   } else {
     let bestScore = Infinity;
+
+    //If the current state of the board is worse than the one before (for this player perspective), we retun the score and skip this move.
+
+    if(score >= oldScore){
+      console.log( score + oldScore + "This move worse, skipping")
+      return score;
+    }
 
     for (let column = 0; column < 6; column++) {
       for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
@@ -120,7 +141,7 @@ function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
         if (newBoardState[column][rowIndex] === null) {
           //Apply move as blue
           newBoardState[column][rowIndex] = "blue";
-          let score = makeMinMaxMove(newBoardState, depthLimit - 1, true);
+          let score = makeMinMaxMove(newBoardState, depthLimit - 1, true, oldScore);
 
           //Reset the value for next iteration
           newBoardState[column][rowIndex] = null;
