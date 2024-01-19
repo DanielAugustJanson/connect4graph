@@ -39,12 +39,11 @@ function App() {
 
     //Each list is representing a column, filled from bottom to top (here: left to right)
     [
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
+      [null, null, null, null, null ],
+      [null, null, null, null, null ],
+      [null, null, null, null, null ],
+      [null, null, null, null, null ],
+      [null, null, null, null, null ],
     ]
   );
 
@@ -55,7 +54,7 @@ function App() {
     if (playerTurn === 2 && aiEnabled) {
 
       //Going above 5 REALLY slows it down, so tread carefully!
-      let bestColumn = findBestMove(boardState,6,true)
+      let bestColumn = findBestMove(boardState,7,true)
       console.log(bestColumn)
 
       handleClick(bestColumn)
@@ -109,6 +108,11 @@ function App() {
     }
 }
 
+function test(depth){
+  if(depth = 0){
+    return 1
+  }
+}
 
   function changePlayer() {
     setPlayerTurn(playerTurn === 1 ? 2 : 1);
@@ -129,12 +133,11 @@ function App() {
     setGameState(0);
     setPlayerTurn(1);
     setBoardState([
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
-      [null, null, null, null, null, null],
+      [null, null, null, null, null],
+      [null, null, null, null, null],
+      [null, null, null, null, null],
+      [null, null, null, null, null],
+      [null, null, null, null, null],
     ])
 
   }

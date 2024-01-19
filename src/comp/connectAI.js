@@ -3,6 +3,7 @@
 //Check Conditions Component
 import checkConditions from "./checkConditions";
 import evaluateBoard from "./evaluateScore";
+import printBoard from "./printBoard";
 
 // This function will be called by the main game logic to find the best move
 function findBestMove(boardState, depthLimit, isMaximizing) {
@@ -13,8 +14,8 @@ function findBestMove(boardState, depthLimit, isMaximizing) {
 
   //Create deep copy of our board;
 
-  for (let column = 0; column < 6; column++) {
-    for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
+  for (let column = 0; column < 5; column++) {
+    for (let rowIndex = 0; rowIndex < 5; rowIndex++) {
       if (boardState[column][rowIndex] === null) {
         //Simulate the move
         boardState[column][rowIndex] = isMaximizing ? "red" : "blue";
@@ -26,17 +27,23 @@ function findBestMove(boardState, depthLimit, isMaximizing) {
           (!isMaximizing)
         );
 
-        // Undo the move for the next iteration
-        boardState[column][rowIndex] = null;
+        
 
         // Update the best score and best move
         if (isMaximizing && score > bestScore) {
           bestScore = score;
           bestMove = column;
+          //printBoard(boardState,bestScore)
+
         } else if (!isMaximizing && score < bestScore) {
           bestScore = score;
           bestMove = column;
+          //printBoard(boardState,bestScore)
+
         }
+        
+        // Undo the move for the next iteration
+        boardState[column][rowIndex] = null;
 
         // Since we can only add to the first free slot in a column, break after trying this slot
         break;
@@ -89,8 +96,8 @@ function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
     let bestScore = -Infinity;
 
     //Run through to see if any moves can be made from here
-    for (let column = 0; column < 6; column++) {
-      for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
+    for (let column = 0; column < 5; column++) {
+      for (let rowIndex = 0; rowIndex < 5; rowIndex++) {
 
         //Create a copy of our board
         let newBoardState = JSON.parse(JSON.stringify(boardState));
@@ -100,9 +107,12 @@ function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
           newBoardState[column][rowIndex] = "red";
           let score = makeMinMaxMove(newBoardState, depthLimit - 1, false);
 
+          bestScore = Math.max(score, bestScore);
+
+          //printBoard(newBoardState, score)
+
           //Reset the value for next iteration
           newBoardState[column][rowIndex] = null;
-          bestScore = Math.max(score, bestScore);
           break;
         }
       }
@@ -111,8 +121,8 @@ function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
   } else {
     let bestScore = Infinity;
 
-    for (let column = 0; column < 6; column++) {
-      for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
+    for (let column = 0; column < 5; column++) {
+      for (let rowIndex = 0; rowIndex < 5; rowIndex++) {
 
         //Create a copy of our board
         let newBoardState = JSON.parse(JSON.stringify(boardState));
@@ -122,9 +132,12 @@ function makeMinMaxMove(boardState, depthLimit, isMaximizing) {
           newBoardState[column][rowIndex] = "blue";
           let score = makeMinMaxMove(newBoardState, depthLimit - 1, true);
 
+          bestScore = Math.min(score, bestScore);
+          //printBoard(newBoardState, score)
+
           //Reset the value for next iteration
           newBoardState[column][rowIndex] = null;
-          bestScore = Math.min(score, bestScore);
+          
           break;
         }
       }

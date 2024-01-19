@@ -6,8 +6,8 @@ function checkConditions(boardState) {
     }
   
     // Check rows for win
-    for (let row = 0; row < 6; row++) {
-      for (let col = 0; col < 3; col++) {
+    for (let row = 0; row < 5; row++) {
+      for (let col = 0; col < 2; col++) {
         if (checkLine(boardState[col][row], boardState[col + 1][row], boardState[col + 2][row], boardState[col + 3][row])) {
           return boardState[col][row];
         }
@@ -15,8 +15,8 @@ function checkConditions(boardState) {
     }
   
     // Check columns for win
-    for (let col = 0; col < 6; col++) {
-      for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 5; col++) {
+      for (let row = 0; row < 2; row++) {
         if (checkLine(boardState[col][row], boardState[col][row + 1], boardState[col][row + 2], boardState[col][row + 3])) {
           return boardState[col][row];
         }
@@ -24,8 +24,8 @@ function checkConditions(boardState) {
     }
   
     // Check diagonal (top-left to bottom-right)
-    for (let col = 0; col < 3; col++) {
-      for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 2; col++) {
+      for (let row = 0; row < 2; row++) {
         if (checkLine(boardState[col][row], boardState[col + 1][row + 1], boardState[col + 2][row + 2], boardState[col + 3][row + 3])) {
           return boardState[col][row];
         }
@@ -33,8 +33,8 @@ function checkConditions(boardState) {
     }
   
     // Check diagonal (bottom-left to top-right)
-    for (let col = 0; col < 3; col++) {
-      for (let row = 3; row < 6; row++) {
+    for (let col = 0; col < 2; col++) {
+      for (let row = 3; row < 5; row++) {
         if (checkLine(boardState[col][row], boardState[col + 1][row - 1], boardState[col + 2][row - 2], boardState[col + 3][row - 3])) {
           return boardState[col][row];
         }

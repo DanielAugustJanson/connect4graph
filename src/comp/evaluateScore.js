@@ -76,7 +76,7 @@ function scorePotentialWins(boardState, player) {
 
 function scoreCenterControl(boardState, player) {
     let score = 0;
-    const centerColumns = [2, 3]; // Third and fourth columns
+    const centerColumns = [2]; // Third and fourth columns
 
     for (let col of centerColumns) {
         for (let row = 0; row < boardState[col].length; row++) {
