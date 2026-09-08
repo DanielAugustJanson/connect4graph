@@ -2,15 +2,15 @@
 
 ### By Daniel Janson 
 
-This project was created for Univeristy Course of Intelligent Algorythms. 
+This project was created for university course of Intelligent Algorythms at Tallinn Unviersity. 
 
 Features a popular remake of game "Connect 4" with integration of Graph Based AI algorythms for playing against AI.
 
 ## Screenshots
 
-![Setup sceen](/readme/start.png)
+![Setup sceen](readme/start.png)
 
-![Gameplay](/readme/gameplay.png)
+![Gameplay](readme/gameplay.png)
 
 ![Endscree](/readme/end.png)
 
